@@ -567,8 +567,11 @@ lamb  = -(D13 * W12 + D11 * W23) / denom
 
 
 def calc_H1(D, eps):
+    if theta2 == np.pi/2:
+        return 4.0 * np.cosh(np.pi * eps)**2 / D[0, 0]
     """H1 = 4 cosh^2(pi*eps) / D22   (Modes I and the oscillatory partner)"""
-    return 4.0 * np.cosh(np.pi * eps)**2 / D[1, 1]
+    else:
+        return 4.0 * np.cosh(np.pi * eps)**2 / D[1, 1]
 
 def calc_H2(D, W):
     """H2 for the non-oscillatory mode (Mode II or III depending on mixity)."""
@@ -710,7 +713,7 @@ def resolve_5ks(DD, W, Omega, Lambda):
     print '    ratio_osc  (Du1/Du3 oscillatory)     = %.6e' % abs(ratio_osc)
     print '    ratio_non  (Du1/Du3 non-oscillatory) = %.6e' % abs(ratio_non)
 
-    if abs(ratio_non) < 1e-30 or abs(ratio_osc) >= 10.0 * abs(ratio_non):
+    if abs(ratio_non) < 1e-30 or abs(ratio_osc) >= 100.0 * abs(ratio_non):
         print '    Decision: in-plane dominates  --> K_osc = K1 + i*K2'
         return 'k1+k2'
     else:
