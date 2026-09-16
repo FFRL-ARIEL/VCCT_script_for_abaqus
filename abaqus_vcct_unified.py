@@ -716,10 +716,12 @@ def resolve_5ks(DD, W, Omega, Lambda):
     if abs(ratio_non) < 1e-30 or abs(ratio_osc) >= 100.0 * abs(ratio_non):
         print '    Decision: in-plane dominates  --> K_osc = K1 + i*K2'
         return 'k1+k2'
-    else:
+    elif abs(ratio_non) > 1e30 or abs(ratio_osc) <= 100.0 * abs(ratio_non):
         print '    Decision: out-of-plane dominates --> K_osc = K1 + i*K3'
         return 'k1+k3'
-
+    else:
+        print '    Decision: !!indecisive!! --> defaulting to k1+i*k2'
+        return 'k1+k2'
 
 # -- Determine final mode mixity -----------------------------------------------
 _basic_mixity = classify_mode_mixity(d_star_n)
