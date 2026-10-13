@@ -716,7 +716,7 @@ def resolve_5ks(DD, W, Omega, Lambda):
     if abs(ratio_non) < 1e-30 or abs(ratio_osc) >= 100.0 * abs(ratio_non):
         print '    Decision: in-plane dominates  --> K_osc = K1 + i*K2'
         return 'k1+k2'
-    elif abs(ratio_non) > 1e30 or abs(ratio_osc) <= 100.0 * abs(ratio_non):
+    elif abs(ratio_non) > 1e30 or 100 * abs(ratio_osc) <= abs(ratio_non):
         print '    Decision: out-of-plane dominates --> K_osc = K1 + i*K3'
         return 'k1+k3'
     else:
